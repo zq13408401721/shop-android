@@ -2,6 +2,10 @@ package com.client;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,86 +13,55 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
 import com.client.threads.MyThread;
 import com.client.ui.test.TestActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity {
 
-    Button btnInit,btnSend,btnTest;
-
-    MyThread myThread1; //线程1
-
-    private Handler handler;
-
+    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        btnInit = findViewById(R.id.btn_createThread);
-        btnSend = findViewById(R.id.btn_send);
-        btnTest = findViewById(R.id.btn_test);
-        btnInit.setOnClickListener(this);
-        btnSend.setOnClickListener(this);
-        btnTest.setOnClickListener(this);
 
-        handler = new Handler(){
+        bottomNavigationView = findViewById(R.id.nav_view);
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.navigation_home, R.id.navigation_topic, R.id.navigation_sort,R.id.navigation_shop,R.id.navigation_me)
+                .build();
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(bottomNavigationView, navController);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void handleMessage(@NonNull Message msg) {
-                super.handleMessage(msg);
-                long _id = Thread.currentThread().getId();
-                String _name = Thread.currentThread().getName();
-                Log.i("TAG","id:"+_id+" name:"+_name);
-
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.navigation_home:
+                        item.setIcon(R.mipmap.ic_menu_choice_pressed);
+                        break;
+                    case R.id.navigation_topic:
+                        item.setIcon(R.mipmap.ic_menu_topic_pressed);
+                        break;
+                    case R.id.navigation_sort:
+                        item.setIcon(R.mipmap.ic_menu_sort_pressed);
+                        break;
+                    case R.id.navigation_shop:
+                        item.setIcon(R.mipmap.ic_menu_shoping_pressed);
+                        break;
+                    case R.id.navigation_me:
+                        item.setIcon(R.mipmap.ic_menu_me_pressed);
+                        break;
+                }
+                return true;
             }
-        };
-
+        });
     }
 
-    private void initThread(){
-        myThread1 = new MyThread();
-        myThread1.start();
-    }
-
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.btn_createThread:
-                initThread();
-                break;
-            case R.id.btn_send:
-                send();
-                break;
-            case R.id.btn_test:
-                Intent intent = new Intent(MainActivity.this, TestActivity.class);
-                startActivity(intent);
-                break;
-        }
-    }
-
-    private void send(){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                long id = Thread.currentThread().getId();
-                String name = Thread.currentThread().getName();
-                Log.i("TAG","id:"+id+" name:"+name);
-                Message msg = new Message();
-                msg.what = MyThread.MSG_1;
-                Handler handler = myThread1.getHandler();
-                handler.sendMessage(msg);
-            }
-        }).start();
-
-    }
-
-    private void initHandlerThread(){
-        HandlerThread handlerThread = new HandlerThread("1");
-    }
 
 
 }

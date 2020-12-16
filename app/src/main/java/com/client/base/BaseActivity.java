@@ -23,7 +23,7 @@ public abstract class BaseActivity<P extends IBasePresenter> extends AppCompatAc
         super.onCreate(savedInstanceState);
         int layout = getLayout();
         if(layout <= 0){
-            new RuntimeException("layout id not allow 0 or <0");
+            throw new RuntimeException("layout id not allow 0 or <0");
         }else{
             setContentView(getLayout());
         }

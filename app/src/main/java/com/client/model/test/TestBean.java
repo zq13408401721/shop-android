@@ -22,6 +22,7 @@ public class TestBean {
 
         private String name;
         private boolean select;
+        public boolean currentSelect;
 
         public String getName() {
             return name;
@@ -37,6 +38,7 @@ public class TestBean {
 
         public void setSelect(boolean select) {
             this.select = select;
+            this.currentSelect = select;
         }
     }
 }

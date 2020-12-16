@@ -32,7 +32,7 @@ public abstract class BaseFragment<P extends IBasePresenter> extends Fragment im
         int layout = getLayout();
         View view = null;
         if(layout <= 0){
-            new RuntimeException("布局非法");
+            throw new RuntimeException("布局非法");
         }else{
            view = inflater.inflate(layout,container,false);
         }

@@ -3,6 +3,7 @@ package com.client.net;
 import android.util.Log;
 
 import com.client.api.ServiceApi;
+import com.client.api.ShopApi;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -33,6 +34,8 @@ public class HttpManager {
     }
 
     private ServiceApi serviceApi;
+
+    private ShopApi shopApi;
 
 
     private Retrofit getRetrofit(String url){
@@ -89,6 +92,17 @@ public class HttpManager {
             serviceApi = getRetrofit(ServiceApi.BASE_URL).create(ServiceApi.class);
         }
         return serviceApi;
+    }
+
+    /**
+     * 商城的api
+     * @return
+     */
+    public ShopApi getShopApi(){
+        if(shopApi == null){
+            shopApi = getRetrofit(ShopApi.BASE_URL).create(ShopApi.class);
+        }
+        return shopApi;
     }
 
 }
