@@ -14,11 +14,13 @@
                 android:id="@+id/banner"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_150"/>
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:id="@+id/layout_tab"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/dp_10">
+            </LinearLayout>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_5"
@@ -42,7 +44,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/dp_20">
                 <TextView
                     android:id="@+id/txt_newgood_title"
                     android:layout_width="match_parent"
@@ -55,6 +58,55 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_5"
+                android:background="#E3E3E3"></View>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/txt_hotgood_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="人气推荐"
+                    android:gravity="center"
+                    android:paddingVertical="@dimen/dp_10"></TextView>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recy_hotgood"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_5"
+                android:background="#E3E3E3"></View>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/txt_topic_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="专题精选"
+                    android:gravity="center"
+                    android:paddingVertical="@dimen/dp_10"></TextView>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recy_topic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_5"
+                android:background="#E3E3E3"></View>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recy_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

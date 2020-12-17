@@ -36,14 +36,13 @@ public abstract class BaseFragment<P extends IBasePresenter> extends Fragment im
         }else{
            view = inflater.inflate(layout,container,false);
         }
-
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        unbinder = ButterKnife.bind(mContext,view);
+        unbinder = ButterKnife.bind(this,view);
         presenter = createPrenter();
         if(presenter != null){
             presenter.attachView(this);
@@ -70,13 +69,8 @@ public abstract class BaseFragment<P extends IBasePresenter> extends Fragment im
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(unbinder != null){
-            unbinder.unbind();
-        }
         if(presenter != null){
             presenter.unAttachView();
         }
-        mActivity = null;
-        mContext = null;
     }
 }

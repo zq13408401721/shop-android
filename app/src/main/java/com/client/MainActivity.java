@@ -43,21 +43,21 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()){
                     case R.id.navigation_home:
                         item.setIcon(R.mipmap.ic_menu_choice_pressed);
-                        break;
+                        return true;
                     case R.id.navigation_topic:
                         item.setIcon(R.mipmap.ic_menu_topic_pressed);
-                        break;
+                        return true;
                     case R.id.navigation_sort:
                         item.setIcon(R.mipmap.ic_menu_sort_pressed);
-                        break;
+                        return true;
                     case R.id.navigation_shop:
                         item.setIcon(R.mipmap.ic_menu_shoping_pressed);
-                        break;
+                        return true;
                     case R.id.navigation_me:
                         item.setIcon(R.mipmap.ic_menu_me_pressed);
-                        break;
+                        return true;
                 }
-                return true;
+                return false;
             }
         });
     }
