@@ -1,6 +1,10 @@
 package com.client.ui.home;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Canvas;
+import android.graphics.Rect;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +13,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -125,6 +131,17 @@ public class HomeFragment extends BaseFragment<IHome.Presenter> implements IHome
             txtChannel.setGravity(Gravity.CENTER);
             channel.setLayoutParams(params);
             layoutTab.addView(channel);
+            channel.setTag(item);
+            channel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int curId = ((HomeBean.DataBean.ChannelBean)v.getTag()).getCategoryid();
+                    Intent intent = new Intent(mContext,ChannelListActivity.class);
+                    intent.putExtra("categoryid",curId);
+                    startActivity(intent);
+                }
+            });
+
         }
     }
 
@@ -135,6 +152,8 @@ public class HomeFragment extends BaseFragment<IHome.Presenter> implements IHome
         brandList = list;
         brandAdpater = new BrandAdpater(mContext,brandList);
         recyBrand.setLayoutManager(new GridLayoutManager(mContext,2));
+        //item的分割线
+        recyBrand.addItemDecoration(new DividerItemDecoration(mContext,LinearLayoutManager.HORIZONTAL));
         recyBrand.setAdapter(brandAdpater);
     }
 
@@ -157,6 +176,7 @@ public class HomeFragment extends BaseFragment<IHome.Presenter> implements IHome
         hotGoodList = list;
         hotGoodAdapter = new HotGoodAdapter(mContext,hotGoodList);
         recyHotGood.setLayoutManager(new LinearLayoutManager(mContext));
+        recyHotGood.addItemDecoration(new HotItemDecoraction(mContext,LinearLayoutManager.HORIZONTAL));
         recyHotGood.setAdapter(hotGoodAdapter);
     }
 
@@ -168,6 +188,7 @@ public class HomeFragment extends BaseFragment<IHome.Presenter> implements IHome
         topicGoodList = list;
         topicGoodAdapter = new TopicGoodAdapter(mContext,topicGoodList);
         recyTopic.setLayoutManager(new LinearLayoutManager(mContext,RecyclerView.HORIZONTAL,false));
+
         recyTopic.setAdapter(topicGoodAdapter);
     }
 

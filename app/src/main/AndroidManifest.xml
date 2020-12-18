@@ -24,6 +24,7 @@
         </activity>
         <activity android:name=".ui.test.TestActivity" />
         <activity android:name=".MainActivity"/>
+        <activity android:name=".ui.home.ChannelListActivity"/>
     </application>
 
 </manifest>
