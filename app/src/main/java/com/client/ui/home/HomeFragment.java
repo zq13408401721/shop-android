@@ -35,6 +35,7 @@ import com.youth.banner.loader.ImageLoaderInterface;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class HomeFragment extends BaseFragment<IHome.Presenter> implements IHome.View {
 
@@ -52,6 +53,8 @@ public class HomeFragment extends BaseFragment<IHome.Presenter> implements IHome
     RecyclerView recyTopic;
     @BindView(R.id.recy_category)
     RecyclerView recyCategory;
+    @BindView(R.id.txt_newgood_title)
+    TextView txtNewGoodTitle;
 
     //品牌直供
     BrandAdpater brandAdpater;
@@ -206,6 +209,21 @@ public class HomeFragment extends BaseFragment<IHome.Presenter> implements IHome
             }
         });
         recyCategory.setAdapter(categoryAdapter);
+    }
+
+
+    @OnClick(R.id.txt_newgood_title)
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.txt_newgood_title:
+                openHotGoodList();
+                break;
+        }
+    }
+
+    private void openHotGoodList(){
+        Intent intent = new Intent(mContext,HotGoodActivity.class);
+        startActivity(intent);
     }
 
     /**
