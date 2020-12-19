@@ -36,14 +36,19 @@ public class HotItemDecoraction extends RecyclerView.ItemDecoration {
     @Override
     public void onDraw(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
         super.onDraw(c, parent, state);
-        drawHorizontalLine(c,parent);
+        //drawHorizontalLine(c,parent);
     }
 
     @Override
     public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
         parent.getWidth();
-        outRect.set(20,0,100,0);
+        if(parent.getChildLayoutPosition(view)%2 == 0){
+            outRect.set(0,0,1,0);
+        }else{
+            outRect.set(1,0,0,0);
+        }
+
     }
 
     //为横方向item, 画分割线

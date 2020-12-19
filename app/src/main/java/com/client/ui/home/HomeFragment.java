@@ -156,7 +156,7 @@ public class HomeFragment extends BaseFragment<IHome.Presenter> implements IHome
         brandAdpater = new BrandAdpater(mContext,brandList);
         recyBrand.setLayoutManager(new GridLayoutManager(mContext,2));
         //item的分割线
-        recyBrand.addItemDecoration(new DividerItemDecoration(mContext,LinearLayoutManager.HORIZONTAL));
+        recyBrand.addItemDecoration(new HotItemDecoraction(mContext,LinearLayoutManager.HORIZONTAL));
         recyBrand.setAdapter(brandAdpater);
     }
 

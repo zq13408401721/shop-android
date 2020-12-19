@@ -26,6 +26,7 @@
         <activity android:name=".MainActivity"/>
         <activity android:name=".ui.home.ChannelListActivity"/>
         <activity android:name=".ui.home.HotGoodActivity"/>
+        <activity android:name=".ui.shop.CarActivity"/>
     </application>
 
 </manifest>

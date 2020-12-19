@@ -76,7 +76,8 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recy_hotgood"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"></androidx.recyclerview.widget.RecyclerView>
             </LinearLayout>
             <View
                 android:layout_width="match_parent"

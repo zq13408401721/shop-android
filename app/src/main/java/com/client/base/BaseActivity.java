@@ -18,6 +18,7 @@ public abstract class BaseActivity<P extends IBasePresenter> extends AppCompatAc
     protected P presenter;
     Unbinder unbinder;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

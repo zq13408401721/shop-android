@@ -46,7 +46,7 @@ public class HotGoodActivity extends BaseActivity<IHotGood.Presenter> implements
     TextView txtPrice;
     @BindView(R.id.txt_sort)
     TextView txtSort;
-    @BindView(R.id.recy_hotgood)
+    @BindView(R.id.recy_goodList)
     RecyclerView recyHotGood;
 
     //是否是新品
@@ -75,6 +75,7 @@ public class HotGoodActivity extends BaseActivity<IHotGood.Presenter> implements
         categoryId = 0;
         layoutPrice.setTag(0);  //
         txtAll.setTextColor(Color.parseColor(HotGoodActivity.this.getString(R.color.red)));
+        presenter.getHotGood(getParam());
     }
 
     @Override
