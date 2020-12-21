@@ -22,6 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class HttpManager {
     private static HttpManager instance;
 
+
     public  static HttpManager getInstance(){
         if(instance == null){
             synchronized(HttpManager.class){

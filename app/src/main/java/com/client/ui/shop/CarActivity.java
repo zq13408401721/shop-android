@@ -11,6 +11,13 @@ import com.client.interfaces.shop.IShop;
 import com.client.model.shop.GoodDetailBean;
 import com.client.presenter.shop.ShopPresenter;
 
+import org.intellij.lang.annotations.RegExp;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import butterknife.BindView;
 
 public class CarActivity extends BaseActivity<IShop.Presenter> implements IShop.View {
@@ -78,8 +85,25 @@ public class CarActivity extends BaseActivity<IShop.Presenter> implements IShop.
      * @param webData
      */
     private void initGoodDetail(String webData){
+        getHtmlImgs(webData);
         String content = h5.replace("word",webData);
         Log.i("TAG",content);
         webView.loadDataWithBaseURL("about:blank", content, "text/html", "utf-8", null);
+    }
+
+    private void getHtmlImgs(String content){
+        String img = "<img[\\s\\S]*?>";
+        Pattern pattern = Pattern.compile(img);
+        Matcher matcher = pattern.matcher(content);
+        List<String> list = new ArrayList<>();
+        while(matcher.find()){
+            String word = matcher.group();
+            int start = word.indexOf("\"")+1;
+            int end = word.indexOf(".jpg");
+            String url = word.substring(start,end);
+            url = url +".jpg";
+            list.add(url);
+        }
+
     }
 }
