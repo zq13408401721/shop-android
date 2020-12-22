@@ -15,7 +15,14 @@
     <string name="title_car_lookall">查看全部</string>
 
 
+    <string name="hint_login_username">请输入用户名</string>
+    <string name="hint_login_pw">请输入密码</string>
+
 
 
     <string name="tips_error_goodid">错误的商品id</string>
+
+
+    <string name="tips_login">请输入正确的用户名和密码</string>
+
 </resources>

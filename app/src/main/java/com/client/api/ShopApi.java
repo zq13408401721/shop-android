@@ -4,12 +4,17 @@ import com.client.model.home.CategoryBean;
 import com.client.model.home.CategoryGoodBean;
 import com.client.model.home.HomeBean;
 import com.client.model.home.HotGoodListBean;
+import com.client.model.login.LoginBean;
 import com.client.model.shop.GoodDetailBean;
 
 import java.util.HashMap;
 
 import io.reactivex.Flowable;
+import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
@@ -33,5 +38,16 @@ public interface ShopApi {
     //商品详情购买页
     @GET("api/goods/detail")
     Flowable<GoodDetailBean> getGoodDetail(@Query("id") int id);
+
+
+    @POST("api/auth/login")
+    @FormUrlEncoded
+    Flowable<LoginBean> login(@Field("username") String username,@Field("password") String pw);
+
+
+    //添加到购物车
+    @POST("api/cart/add")
+    @FormUrlEncoded
+    Flowable<LoginBean> addCar(@FieldMap HashMap<String,String> map);
 
 }

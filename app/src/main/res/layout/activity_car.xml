@@ -177,7 +177,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="立即购买"
+            android:text=""
             android:textSize="@dimen/sp_20"
             app:layout_constraintLeft_toRightOf="@id/txt_buy"
             app:layout_constraintRight_toRightOf="parent"/>

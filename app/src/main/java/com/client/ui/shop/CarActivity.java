@@ -1,7 +1,9 @@
 package com.client.ui.shop;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.webkit.WebView;
 
 import com.client.R;
@@ -10,6 +12,8 @@ import com.client.interfaces.IBasePresenter;
 import com.client.interfaces.shop.IShop;
 import com.client.model.shop.GoodDetailBean;
 import com.client.presenter.shop.ShopPresenter;
+import com.client.ui.login.LoginActivity;
+import com.client.utils.SpUtils;
 
 import org.intellij.lang.annotations.RegExp;
 
@@ -19,6 +23,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class CarActivity extends BaseActivity<IShop.Presenter> implements IShop.View {
 
@@ -59,6 +64,28 @@ public class CarActivity extends BaseActivity<IShop.Presenter> implements IShop.
 
     }
 
+    @OnClick({R.id.layout_collect,R.id.layout_car,R.id.txt_buy,R.id.txt_addCar})
+    public void onClick(View view){
+        if(!TextUtils.isEmpty(SpUtils.getInstance().getString("token"))){
+            switch (view.getId()){
+                case R.id.layout_collect:
+                    break;
+                case R.id.layout_car:
+
+                    break;
+                case R.id.txt_buy:
+
+                    break;
+                case R.id.txt_addCar:
+
+                    break;
+            }
+        }else{
+            Intent intent = new Intent(CarActivity.this, LoginActivity.class);
+            startActivity(intent);
+        }
+    }
+
     @Override
     protected void initData() {
         Intent intent = getIntent();
@@ -71,6 +98,10 @@ public class CarActivity extends BaseActivity<IShop.Presenter> implements IShop.
             }
         }
 
+
+    }
+
+    private void addCar(){
 
     }
 
