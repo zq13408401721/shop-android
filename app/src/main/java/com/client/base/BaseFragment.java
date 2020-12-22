@@ -2,6 +2,7 @@ package com.client.base;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import androidx.fragment.app.Fragment;
 
 import com.client.interfaces.IBasePresenter;
 import com.client.interfaces.IBaseView;
+import com.client.ui.login.LoginActivity;
+import com.client.utils.ActivityManager;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -64,6 +67,13 @@ public abstract class BaseFragment<P extends IBasePresenter> extends Fragment im
     @Override
     public void showToast(String tips) {
 
+    }
+
+    /**
+     * 跳转登录
+     */
+    protected void gotoLogin(){
+        ActivityManager.startFragmentForResult(this,100,LoginActivity.class);
     }
 
     @Override
