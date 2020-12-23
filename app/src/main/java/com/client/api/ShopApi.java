@@ -5,14 +5,19 @@ import com.client.model.home.CategoryGoodBean;
 import com.client.model.home.HomeBean;
 import com.client.model.home.HotGoodListBean;
 import com.client.model.login.LoginBean;
+import com.client.model.shop.AddCarBean;
 import com.client.model.shop.CarBean;
+import com.client.model.shop.DeleteCarBean;
 import com.client.model.shop.GoodDetailBean;
+import com.client.model.shop.UpdateCarBean;
 
 import org.intellij.lang.annotations.Flow;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import io.reactivex.Flowable;
+import retrofit2.Response;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -51,7 +56,17 @@ public interface ShopApi {
     //添加到购物车
     @POST("api/cart/add")
     @FormUrlEncoded
-    Flowable<LoginBean> addCar(@FieldMap HashMap<String,String> map);
+    Flowable<AddCarBean> addCar(@FieldMap Map<String,String> map);
+
+    //更新购物车的数据
+    @POST("api/cart/update")
+    @FormUrlEncoded
+    Flowable<UpdateCarBean> updateCar(@FieldMap Map<String,String> map);
+
+    //删除购物车数据
+    @POST("api/cart/delete")
+    @FormUrlEncoded
+    Flowable<DeleteCarBean> deleteCar(@Field("productIds") String productIds);
 
     //购物车列表
     @GET("api/cart/index")

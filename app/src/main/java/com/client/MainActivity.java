@@ -1,6 +1,7 @@
 package com.client;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -24,6 +25,7 @@ import android.widget.Button;
 import com.client.threads.MyThread;
 import com.client.ui.home.HomeFragment;
 import com.client.ui.me.MeFragment;
+import com.client.ui.shop.CarActivity;
 import com.client.ui.shop.ShopFragment;
 import com.client.ui.sort.SortFragment;
 import com.client.ui.test.TestActivity;
@@ -121,6 +123,17 @@ public class MainActivity extends AppCompatActivity {
         fragments.add(new SortFragment());
         fragments.add(new ShopFragment());
         fragments.add(new MeFragment());
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //回调打开购物车
+        if(resultCode == CarActivity.RECOMMEND_CAR){
+            bottomNavigationView.getMenu().getItem(3).setChecked(true);
+            viewPager.setCurrentItem(3);
+        }
     }
 
     class MyFragmentPagerAdapter extends FragmentPagerAdapter{

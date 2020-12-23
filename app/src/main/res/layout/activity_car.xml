@@ -161,7 +161,8 @@
                 android:layout_marginLeft="@dimen/dp_10"
                 android:gravity="center"
                 android:background="@drawable/shape_car_number"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:visibility="gone"/>
         </FrameLayout>
         <TextView
             android:id="@+id/txt_buy"
@@ -177,8 +178,11 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text=""
+            android:text="加入购物车"
             android:textSize="@dimen/sp_20"
+            android:maxLines="1"
+            android:textColor="@color/white"
+            android:background="@color/red"
             app:layout_constraintLeft_toRightOf="@id/txt_buy"
             app:layout_constraintRight_toRightOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -24,5 +24,6 @@
 
 
     <string name="tips_login">请输入正确的用户名和密码</string>
+    <string name="tips_buynumber">请选中购买商品数量</string>
 
 </resources>

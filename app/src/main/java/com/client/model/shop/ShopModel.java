@@ -7,6 +7,8 @@ import com.client.net.CommonSubscriber;
 import com.client.net.HttpManager;
 import com.client.utils.RxUtils;
 
+import java.util.Map;
+
 public class ShopModel extends BaseModel implements IShop.Model {
     @Override
     public void getGoodDetail(int id, Callback callback) {
@@ -16,6 +18,19 @@ public class ShopModel extends BaseModel implements IShop.Model {
                     @Override
                     public void onNext(GoodDetailBean goodDetailBean) {
                         callback.success(goodDetailBean);
+                    }
+                }));
+    }
+
+    // 添加进购物车
+    @Override
+    public void addGoodCar(Map<String, String> map, Callback callback) {
+        addDisposible(HttpManager.getInstance().getShopApi().addCar(map).
+                compose(RxUtils.rxScheduler())
+                .subscribeWith(new CommonSubscriber<AddCarBean>(callback) {
+                    @Override
+                    public void onNext(AddCarBean addCarBean) {
+                        callback.success(addCarBean);
                     }
                 }));
     }

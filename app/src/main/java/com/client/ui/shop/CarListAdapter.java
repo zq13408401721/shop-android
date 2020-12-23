@@ -23,6 +23,11 @@ public class CarListAdapter extends BaseAdapter<CarBean.DataBean.CartListBean> {
 
     private boolean isEdit; //是否是编辑状态
 
+    private UpdateItem updateItem;
+    public void setUpdateItem(UpdateItem item){
+        this.updateItem = item;
+    }
+
     public void setEditState(boolean bool){
         isEdit = bool;
     }
@@ -56,14 +61,19 @@ public class CarListAdapter extends BaseAdapter<CarBean.DataBean.CartListBean> {
         // 设置选中状态
         checkBox.setChecked(isEdit?data.selectEdit:data.selectOrder);
         ImageLoader.loadImage(data.getList_pic_url(),imgItem);
+        txtName.setText(data.getGoods_name());
         txtPrice.setText("￥"+data.getRetail_price());
         txtNumber.setText("X "+String.valueOf(data.getNumber()));
         numberSelect.addPage(R.layout.layout_number_change);
+        numberSelect.setNumber(data.getNumber());
         numberSelect.addChangeNumber(new NumberSelect.ChangeNumber() {
             @Override
             public void change(int number) {
                 //修改本地数据得值
                 data.setNumber(number);
+                if(updateItem != null){
+                    updateItem.updateItemDate(data);
+                }
             }
         });
 
@@ -92,5 +102,10 @@ public class CarListAdapter extends BaseAdapter<CarBean.DataBean.CartListBean> {
 
 
 
+    }
+
+
+    public interface UpdateItem{
+        void updateItemDate(CarBean.DataBean.CartListBean data);
     }
 }

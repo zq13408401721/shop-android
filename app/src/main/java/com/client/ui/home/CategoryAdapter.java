@@ -1,5 +1,6 @@
 package com.client.ui.home;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Parcelable;
@@ -19,8 +20,8 @@ import com.client.utils.TxtUtils;
 import java.util.List;
 
 public class CategoryAdapter extends BaseAdapter<HomeBean.DataBean.CategoryListBean> {
-    public CategoryAdapter(Context context, List<HomeBean.DataBean.CategoryListBean> data) {
-        super(context, data);
+    public CategoryAdapter(Context context, List<HomeBean.DataBean.CategoryListBean> data, Activity activity) {
+        super(context, data,activity);
     }
 
     @Override
@@ -40,9 +41,9 @@ public class CategoryAdapter extends BaseAdapter<HomeBean.DataBean.CategoryListB
         goodAdapter.addListClick(new IListClick() {
             @Override
             public void itemClick(int pos) {
-                Intent intent = new Intent(context, CarActivity.class);
+                Intent intent = new Intent(activity, CarActivity.class);
                 intent.putExtra("goodid", data.getGoodsList().get(pos).getId());
-                context.startActivity(intent);
+                activity.startActivityForResult(intent,100);
             }
         });
     }

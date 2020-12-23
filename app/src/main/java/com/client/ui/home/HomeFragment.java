@@ -201,7 +201,7 @@ public class HomeFragment extends BaseFragment<IHome.Presenter> implements IHome
      */
     private void initCategoryList(List<HomeBean.DataBean.CategoryListBean> list){
         categoryList = list;
-        categoryAdapter = new CategoryAdapter(mContext,categoryList);
+        categoryAdapter = new CategoryAdapter(mContext,categoryList,getActivity());
         recyCategory.setLayoutManager(new LinearLayoutManager(mContext){
             @Override
             public boolean canScrollVertically() {
