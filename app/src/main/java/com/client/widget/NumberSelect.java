@@ -43,6 +43,7 @@ public class NumberSelect extends LinearLayout implements View.OnClickListener {
     }
 
     public void addPage(int layout){
+        removeAllViews();
         View view = LayoutInflater.from(getContext()).inflate(layout,this,false);
         addView(view);
         txtReduce = view.findViewById(R.id.txt_reduce);

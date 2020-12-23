@@ -3,6 +3,7 @@ package com.client.ui.shop;
 import android.content.Context;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +16,8 @@ import com.client.widget.NumberSelect;
 import org.w3c.dom.Text;
 
 import java.util.List;
+
+import retrofit2.http.POST;
 
 public class CarListAdapter extends BaseAdapter<CarBean.DataBean.CartListBean> {
 
@@ -54,13 +57,24 @@ public class CarListAdapter extends BaseAdapter<CarBean.DataBean.CartListBean> {
         checkBox.setChecked(isEdit?data.selectEdit:data.selectOrder);
         ImageLoader.loadImage(data.getList_pic_url(),imgItem);
         txtPrice.setText("￥"+data.getRetail_price());
-        txtNumber.setText(String.valueOf(data.getNumber()));
+        txtNumber.setText("X "+String.valueOf(data.getNumber()));
         numberSelect.addPage(R.layout.layout_number_change);
         numberSelect.addChangeNumber(new NumberSelect.ChangeNumber() {
             @Override
             public void change(int number) {
                 //修改本地数据得值
                 data.setNumber(number);
+            }
+        });
+
+        checkBox.setTag(data.getId());
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(iItemViewClick != null){
+                    int id = (int) buttonView.getTag();
+                    iItemViewClick.itemViewClick(id,isChecked);
+                }
             }
         });
 
