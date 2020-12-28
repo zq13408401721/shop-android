@@ -1,11 +1,14 @@
 package com.client.ui.shop;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
 
 import com.client.R;
 import com.client.base.BaseActivity;
@@ -197,5 +200,48 @@ public class CarActivity extends BaseActivity<IShop.Presenter> implements IShop.
             list.add(url);
         }
 
+    }
+
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.i("CarActivity","onCreate");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i("CarActivity","onStart");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i("CarActivity","onResume");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.i("CarActivity","onRestart");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i("CarActivity","onPause");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i("CarActivity","onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i("CarActivity","onDestroy");
     }
 }

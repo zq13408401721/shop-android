@@ -12,7 +12,6 @@ public class SpUtils {
     public SpUtils(){
         sp = MyApp.app.getSharedPreferences("chat", Context.MODE_PRIVATE);
     }
-
     public static SpUtils getInstance(){
         if(instance == null){
             synchronized (SpUtils.class){

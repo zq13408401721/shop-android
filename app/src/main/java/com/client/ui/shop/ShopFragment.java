@@ -346,7 +346,8 @@ public class ShopFragment extends BaseFragment<ICar.Presenter> implements ICar.V
     private void submit(){
         if("下单".equals(txtSubmit.getText().toString())){
             //下单
-
+            Intent intent = new Intent(mContext,OrderActivity.class);
+            startActivity(intent);
         }else if("删除所选".equals(txtSubmit.getText().toString())){
             //删除购物车所选数据
             deleteCar();

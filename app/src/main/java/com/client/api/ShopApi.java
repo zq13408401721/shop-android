@@ -5,6 +5,7 @@ import com.client.model.home.CategoryGoodBean;
 import com.client.model.home.HomeBean;
 import com.client.model.home.HotGoodListBean;
 import com.client.model.login.LoginBean;
+import com.client.model.me.UserInfoBean;
 import com.client.model.shop.AddCarBean;
 import com.client.model.shop.CarBean;
 import com.client.model.shop.DeleteCarBean;
@@ -71,6 +72,10 @@ public interface ShopApi {
     //购物车列表
     @GET("api/cart/index")
     Flowable<CarBean> getCarList();
+
+    //用户信息更新
+    @POST("api/user/updateUserInfo")
+    Flowable<UserInfoBean> updateUserInfo(@FieldMap Map<String,String> map);
 
 
 }

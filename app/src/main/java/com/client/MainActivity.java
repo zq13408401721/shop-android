@@ -133,6 +133,8 @@ public class MainActivity extends AppCompatActivity {
         if(resultCode == CarActivity.RECOMMEND_CAR){
             bottomNavigationView.getMenu().getItem(3).setChecked(true);
             viewPager.setCurrentItem(3);
+        }else if(requestCode == MeFragment.LOGIN_ME){
+            ((MeFragment)fragments.get(4)).loginSuccess();
         }
     }
 

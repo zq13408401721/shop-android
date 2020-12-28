@@ -26,6 +26,8 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+
 }
 
 dependencies {
@@ -102,6 +104,8 @@ dependencies {
 
     //oss
     implementation 'com.aliyun.dpa:oss-android-sdk:+'
+
+    implementation (name: 'alipaysdk-15.8.00.201112210139', ext: 'aar')
 
 
 

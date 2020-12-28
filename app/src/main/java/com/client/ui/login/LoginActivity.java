@@ -96,6 +96,10 @@ public class LoginActivity extends BaseActivity<ILogin.Presenter> implements ILo
         if(!TextUtils.isEmpty(loginBean.getData().getToken())){
             SpUtils.getInstance().setValue("token",loginBean.getData().getToken());
             SpUtils.getInstance().setValue("uid",loginBean.getData().getUserInfo().getUid());
+            SpUtils.getInstance().setValue("nickname",loginBean.getData().getUserInfo().getNickname());
+            SpUtils.getInstance().setValue("avatar",loginBean.getData().getUserInfo().getAvatar());
+            SpUtils.getInstance().setValue("username",loginBean.getData().getUserInfo().getUsername());
+            SpUtils.getInstance().setValue("mark","");
             finish();
         }
     }
