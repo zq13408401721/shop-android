@@ -121,7 +121,8 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void openUserInfoDetail(){
-
+        Intent intent = new Intent(mContext,UserInfoDetailActivity.class);
+        startActivityForResult(intent,100);
     }
 
     /**

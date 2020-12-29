@@ -107,6 +107,6 @@ dependencies {
 
     implementation (name: 'alipaysdk-15.8.00.201112210139', ext: 'aar')
 
-
+    implementation 'com.aliyun.dpa:oss-android-sdk:+'
 
 }

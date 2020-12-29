@@ -3,6 +3,7 @@ package com.client.utils;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 
@@ -39,6 +40,18 @@ public class BitmapUtils {
         options.inSampleSize = scale;
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
         return BitmapFactory.decodeFile(path,options);
+    }
+
+    /**
+     * bitmap 转 bytes
+     * @param bitmap
+     * @return
+     */
+    public static byte[] getBytesByBitmap(Bitmap bitmap){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+        return data;
     }
 
 }

@@ -1,5 +1,7 @@
 package com.client.app;
 
+import com.client.model.me.UserInfoBean;
+
 import java.io.File;
 
 public class Constants {

@@ -30,7 +30,8 @@
         <activity android:name=".ui.shop.CarActivity"/>
         <activity android:name=".ui.login.LoginActivity"/>
         <activity android:name=".ui.shop.OrderActivity"/>
-        <activity android:name=".ui.me.UserInfoDetailActivity" />
+        <activity android:name=".ui.me.UserInfoDetailActivity"
+            android:windowSoftInputMode="adjustResize"/>
     </application>
 
 </manifest>
