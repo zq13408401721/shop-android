@@ -30,6 +30,7 @@ import com.client.app.Constants;
 import com.client.base.BaseActivity;
 import com.client.interfaces.IBasePresenter;
 import com.client.interfaces.me.IUser;
+import com.client.model.login.LogoutBean;
 import com.client.model.me.UserInfoBean;
 import com.client.presenter.me.UserPresenter;
 import com.client.utils.BitmapUtils;
@@ -62,6 +63,8 @@ public class UserInfoDetailActivity extends BaseActivity<IUser.Presenter> implem
     EditText txtInput;
     @BindView(R.id.btn_save)
     Button btnSave;
+    @BindView(R.id.btn_loginout)
+    Button btnLoginOut;
 
 
     String bucketName = "2002a";
@@ -88,6 +91,7 @@ public class UserInfoDetailActivity extends BaseActivity<IUser.Presenter> implem
         layoutInput.setVisibility(View.GONE);
         btnSave.setOnClickListener(this);
         layoutNickname.setOnClickListener(this);
+        btnLoginOut.setOnClickListener(this);
     }
 
     @Override
@@ -123,6 +127,10 @@ public class UserInfoDetailActivity extends BaseActivity<IUser.Presenter> implem
                     map.put("nickname",nickname);
                     presenter.updateUserInfo(map);
                 }
+                break;
+            case R.id.btn_loginout:
+                Log.i("TAG","loginout click");
+                presenter.logout();
                 break;
         }
     }
@@ -237,6 +245,18 @@ public class UserInfoDetailActivity extends BaseActivity<IUser.Presenter> implem
             SystemUtils.closeSoftKeyBoard(this);
             layoutInput.setVisibility(View.GONE);
         }
+    }
+
+    /**
+     * 退出登录
+     * @param result
+     */
+    @Override
+    public void logoutReturn(LogoutBean result) {
+        Log.i("TAG","logoutReturn");
+        SpUtils.getInstance().remove("token");
+        setResult(MeFragment.LOGINOUT_ME);
+        finish();
     }
 
 

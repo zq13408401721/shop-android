@@ -129,6 +129,7 @@ public class SplaceFragment extends Fragment implements View.OnClickListener {
     }
 
     private void goMain(){
+        live = false;
         Intent intent = new Intent(getContext(), MainActivity.class);
         startActivity(intent);
         getActivity().finish();

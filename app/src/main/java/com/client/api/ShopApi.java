@@ -5,6 +5,8 @@ import com.client.model.home.CategoryGoodBean;
 import com.client.model.home.HomeBean;
 import com.client.model.home.HotGoodListBean;
 import com.client.model.login.LoginBean;
+import com.client.model.login.LogoutBean;
+import com.client.model.login.RegisterBean;
 import com.client.model.me.UserInfoBean;
 import com.client.model.shop.AddCarBean;
 import com.client.model.shop.CarBean;
@@ -29,7 +31,8 @@ import retrofit2.http.QueryMap;
 
 public interface ShopApi {
 
-    String BASE_URL = "https://cdplay.cn/";
+    //String BASE_URL = "https://cdplay.cn/";
+    String BASE_URL = "http://192.168.3.186:8360/";
 
     @GET("api/index")
     Flowable<HomeBean> getHome();
@@ -75,7 +78,19 @@ public interface ShopApi {
 
     //用户信息更新
     @POST("api/user/updateUserInfo")
+    @FormUrlEncoded
     Flowable<UserInfoBean> updateUserInfo(@FieldMap Map<String,String> map);
+
+
+    //注册
+    @POST("api/auth/registernew")
+    @FormUrlEncoded
+    Flowable<RegisterBean> register(@FieldMap Map<String,String> map);
+
+    //退出登录
+    @POST("api/auth/logout")
+    Flowable<LogoutBean> logout();
+
 
 
 }

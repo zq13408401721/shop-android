@@ -5,6 +5,7 @@ import com.client.interfaces.IBaseModel;
 import com.client.interfaces.IBasePresenter;
 import com.client.interfaces.IBaseView;
 import com.client.interfaces.shop.ICar;
+import com.client.model.login.LogoutBean;
 import com.client.model.me.UserInfoBean;
 import com.client.model.shop.CarBean;
 import com.client.model.shop.DeleteCarBean;
@@ -15,14 +16,18 @@ import java.util.Map;
 public interface IUser {
     interface View extends IBaseView {
         void updateUserInfoReturn(UserInfoBean result);
+
+        void logoutReturn(LogoutBean result);
     }
 
     interface Presenter extends IBasePresenter<View> {
         void updateUserInfo(Map<String,String> map);
+        void logout();
     }
 
 
     interface Model extends IBaseModel {
         void updateUserInfo(Map<String,String> map,Callback callback);
+        void logout(Callback callback);
     }
 }
