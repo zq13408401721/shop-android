@@ -2,17 +2,20 @@ package com.client.ui.me;
 
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.client.R;
 import com.client.base.BaseFragment;
 import com.client.interfaces.IBasePresenter;
 import com.client.ui.login.LoginActivity;
+import com.client.ui.login.RegisterActivity;
 import com.client.utils.ImageLoader;
 import com.client.utils.SpUtils;
 import com.client.utils.TxtUtils;
@@ -35,8 +38,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     TextView txtMark;
     @BindView(R.id.txt_login)
     TextView txtLogin;
-    @BindView(R.id.btn_loginout)
-    Button btnLoginOut;
+
 
     @Override
     protected int getLayout() {
@@ -51,7 +53,6 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     protected void initView() {
         layoutUserInfo.setOnClickListener(this);
-        btnLoginOut.setOnClickListener(this);
     }
 
     @Override
@@ -116,7 +117,8 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
      * 打开登录页面
      */
     private void openLogin(){
-        Intent intent = new Intent(mContext, LoginActivity.class);
+        Log.i("TAg","register");
+        Intent intent = new Intent(mContext, RegisterActivity.class);
         getActivity().startActivityForResult(intent,LOGIN_ME);
     }
 
@@ -125,10 +127,18 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         startActivityForResult(intent,100);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == LOGINOUT_ME){
+            loginOut();
+        }
+    }
+
     /**
      * 退出登录
      */
     private void loginOut(){
-
+        isLogin(false);
     }
 }

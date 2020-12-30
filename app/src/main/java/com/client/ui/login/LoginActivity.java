@@ -17,6 +17,7 @@ import com.client.interfaces.login.ILogin;
 import com.client.model.login.LoginBean;
 import com.client.presenter.login.LoginPresenter;
 import com.client.utils.SpUtils;
+import com.client.utils.TxtUtils;
 import com.luck.picture.lib.tools.ToastUtils;
 
 import butterknife.BindView;
@@ -39,6 +40,8 @@ public class LoginActivity extends BaseActivity<ILogin.Presenter> implements ILo
     @BindView(R.id.img_pw)
     ImageView imgPw;
 
+    private String username;
+
     @Override
     protected int getLayout() {
         return R.layout.activity_login;
@@ -56,7 +59,8 @@ public class LoginActivity extends BaseActivity<ILogin.Presenter> implements ILo
 
     @Override
     protected void initData() {
-
+        String um = SpUtils.getInstance().getString("username");
+        TxtUtils.setTextView(inputUsername,um);
     }
 
     @OnClick({R.id.btn_login,R.id.img_pw})
@@ -81,7 +85,7 @@ public class LoginActivity extends BaseActivity<ILogin.Presenter> implements ILo
     }
 
     private void login(){
-        String username = inputUsername.getText().toString();
+        username = inputUsername.getText().toString();
         String pw = inputPw.getText().toString();
         if(!TextUtils.isEmpty(username) && !TextUtils.isEmpty(pw)){
             presenter.login(username,pw);
