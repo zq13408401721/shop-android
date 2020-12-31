@@ -1,5 +1,6 @@
 package com.client.api;
 
+import com.client.model.app.AppBean;
 import com.client.model.home.CategoryBean;
 import com.client.model.home.CategoryGoodBean;
 import com.client.model.home.HomeBean;
@@ -85,11 +86,17 @@ public interface ShopApi {
     //注册
     @POST("api/auth/registernew")
     @FormUrlEncoded
-    Flowable<RegisterBean> register(@FieldMap Map<String,String> map);
+    Flowable<RegisterBean> register(@Field("username") String username,@Field("password") String password);
 
     //退出登录
     @POST("api/auth/logout")
     Flowable<LogoutBean> logout();
+
+
+    //版本更新
+    @GET("api/apk/appinfo")
+    Flowable<AppBean> getAppInfo();
+
 
 
 

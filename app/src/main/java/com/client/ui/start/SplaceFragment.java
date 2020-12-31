@@ -40,6 +40,8 @@ public class SplaceFragment extends Fragment implements View.OnClickListener {
     private int index; //当前页面的下标
     private boolean live; //当前页面是显示状态
 
+    public boolean isUpdate;
+
     public static SplaceFragment getInstance(int index){
         SplaceFragment fragment = new SplaceFragment();
         Bundle bundle = new Bundle();
@@ -52,6 +54,9 @@ public class SplaceFragment extends Fragment implements View.OnClickListener {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         live = isVisibleToUser;
+        if(live && index == 3){
+            startTime();
+        }
     }
 
     @Nullable
@@ -81,7 +86,9 @@ public class SplaceFragment extends Fragment implements View.OnClickListener {
         if(index == 3){
             txtTime.setVisibility(View.VISIBLE);
             //开启倒计时
-            startTime();
+            if(live){
+                startTime();
+            }
         }else{
             txtTime.setVisibility(View.GONE);
         }
@@ -129,6 +136,7 @@ public class SplaceFragment extends Fragment implements View.OnClickListener {
     }
 
     private void goMain(){
+        if(isUpdate) return;
         live = false;
         Intent intent = new Intent(getContext(), MainActivity.class);
         startActivity(intent);

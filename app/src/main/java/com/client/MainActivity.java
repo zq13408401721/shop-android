@@ -22,6 +22,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.client.base.BaseActivity;
+import com.client.interfaces.IBasePresenter;
 import com.client.threads.MyThread;
 import com.client.ui.home.HomeFragment;
 import com.client.ui.me.MeFragment;
@@ -35,7 +37,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     BottomNavigationView bottomNavigationView;
     ViewPager viewPager;
@@ -49,11 +51,19 @@ public class MainActivity extends AppCompatActivity {
     List<Fragment> fragments;
     MyFragmentPagerAdapter myFragmentPagerAdapter;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
+    @Override
+    protected int getLayout() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected IBasePresenter createPrenter() {
+        return null;
+    }
+
+    @Override
+    protected void initView() {
         bottomNavigationView = findViewById(R.id.nav_view);
         viewPager = findViewById(R.id.viewPager);
 
@@ -114,6 +124,11 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void initData() {
+
     }
 
     private void initFragment(){

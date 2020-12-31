@@ -3,6 +3,7 @@ package com.client;
 import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -10,16 +11,26 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.client.app.Constants;
+import com.client.app.MyApp;
 import com.client.base.BaseActivity;
 import com.client.interfaces.IBasePresenter;
+import com.client.interfaces.app.IApp;
+import com.client.model.app.AppBean;
+import com.client.presenter.app.AppPresenter;
 import com.client.ui.start.SplaceFragment;
+import com.client.utils.DownUtils;
+import com.client.utils.SystemUtils;
+import com.luck.picture.lib.tools.ToastUtils;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 
-public class SplaceActivity extends BaseActivity {
+public class SplaceActivity extends BaseActivity<IApp.Presenter> implements IApp.View {
 
     @BindView(R.id.viewPager)
     ViewPager viewPager;
@@ -35,8 +46,12 @@ public class SplaceActivity extends BaseActivity {
     ImageView img_3_normal;
     @BindView(R.id.img_3_select)
     ImageView img_3_select;
+    @BindView(R.id.txt_loading)
+    TextView txtLoading;
 
     List<SplaceFragment> list;
+
+    private boolean isUpdate;
 
     @Override
     protected int getLayout() {
@@ -44,8 +59,8 @@ public class SplaceActivity extends BaseActivity {
     }
 
     @Override
-    protected IBasePresenter createPrenter() {
-        return null;
+    protected IApp.Presenter createPrenter() {
+        return new AppPresenter();
     }
 
     @Override
@@ -86,6 +101,8 @@ public class SplaceActivity extends BaseActivity {
 
             }
         });
+        //获取最新的版本信息
+        presenter.getAppInfo();
     }
 
 
@@ -96,6 +113,63 @@ public class SplaceActivity extends BaseActivity {
         img_1_select.setVisibility(View.GONE);
         img_2_select.setVisibility(View.GONE);
         img_3_select.setVisibility(View.GONE);
+    }
+
+    /**
+     * 版本信息
+     * @param appBean
+     */
+    @Override
+    public void getAppInfoReturn(AppBean appBean) {
+        long versionCode = SystemUtils.getApkVersionCodeByPg(MyApp.app,appBean.getData().get(0).getPg());
+        if(versionCode == -1){
+            ToastUtils.s(this,"未找到对应的apk");
+        }else{
+            if(versionCode < appBean.getData().get(0).getVcode()){
+                //下载更新apk
+                isUpdate = true;
+                list.get(2).isUpdate = true; //当前需要更新新版本
+                downApk(appBean);
+            }else{
+
+            }
+        }
+
+    }
+
+    private void downApk(AppBean appBean){
+        String apkPath = Constants.APK_PATH+appBean.getData().get(0).getName();
+        File file = new File(apkPath);
+        try{
+            if(!file.exists()){
+                file.createNewFile();
+            }
+            DownUtils.downApk(appBean.getData().get(0).getUrl(), apkPath, new DownUtils.Callback() {
+                @Override
+                public void success() {
+                    //安装apk
+                    SystemUtils.installNewApk(apkPath);
+                }
+
+                @Override
+                public void progress(String loading) {
+                    txtLoading.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            txtLoading.setText(loading);
+                        }
+                    });
+                }
+
+                @Override
+                public void fail(String err) {
+
+                }
+            });
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
     }
 
     class MyViewPagerAdapter extends FragmentPagerAdapter{

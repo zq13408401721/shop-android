@@ -15,11 +15,11 @@ public interface IRegister {
     }
 
     interface Presenter extends IBasePresenter<View> {
-        void register(Map<String,String> map);
+        void register(String username,String password);
     }
 
 
     interface Model extends IBaseModel {
-        void register(Map<String,String> map, Callback callback);
+        void register(String username,String password, Callback callback);
     }
 }

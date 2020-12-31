@@ -13,9 +13,9 @@ import java.util.Map;
 
 public class RegisterModel extends BaseModel implements IRegister.Model {
     @Override
-    public void register(Map<String,String> map, Callback callback) {
+    public void register(String um,String pw, Callback callback) {
         Log.i("TAG","model register");
-        addDisposible(HttpManager.getInstance().getShopApi().register(map).
+        addDisposible(HttpManager.getInstance().getShopApi().register(um,pw).
                 compose(RxUtils.rxScheduler())
                 .subscribeWith(new CommonSubscriber<RegisterBean>(callback) {
                     @Override

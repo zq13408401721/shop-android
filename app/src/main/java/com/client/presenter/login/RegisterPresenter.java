@@ -17,8 +17,8 @@ public class RegisterPresenter extends BasePresenter<IRegister.View> implements 
         model = new RegisterModel();
     }
     @Override
-    public void register(Map<String,String> map) {
-        model.register(map,new Callback<RegisterBean>() {
+    public void register(String um,String pw) {
+        model.register(um,pw,new Callback<RegisterBean>() {
             @Override
             public void success(RegisterBean data) {
                 if(mView != null){
@@ -35,7 +35,4 @@ public class RegisterPresenter extends BasePresenter<IRegister.View> implements 
         });
     }
 
-    public void test(){
-
-    }
 }

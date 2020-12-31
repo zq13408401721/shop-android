@@ -1,5 +1,7 @@
 package com.client.app;
 
+import android.os.Environment;
+
 import com.client.model.me.UserInfoBean;
 
 import java.io.File;
@@ -10,6 +12,8 @@ public class Constants {
     public static final String PATH_DATA = MyApp.app.getCacheDir().getAbsolutePath() + File.separator + "data";
 
     public static final String PATH_IMGS = PATH_DATA + "/client/imgs";
+
+    public static final String APK_PATH = Environment.getStorageDirectory()+File.separator+"apk/";
 
 
     public static final String ACTION_UPDATEHEADER = "updateheader"; //头像更新的动作

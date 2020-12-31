@@ -9,12 +9,17 @@ import android.widget.EditText;
 
 import com.client.R;
 import com.client.base.BaseActivity;
+import com.client.interfaces.Callback;
 import com.client.interfaces.IBasePresenter;
 import com.client.interfaces.login.IRegister;
 import com.client.model.login.RegisterBean;
+import com.client.net.CommonSubscriber;
+import com.client.net.HttpManager;
 import com.client.presenter.login.RegisterPresenter;
+import com.client.utils.RxUtils;
 import com.client.utils.SpUtils;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -60,10 +65,7 @@ public class RegisterActivity extends BaseActivity<IRegister.Presenter> implemen
         um = username.getText().toString();
         pw = password.getText().toString();
         if(!TextUtils.isEmpty(um) && !TextUtils.isEmpty(pw)){
-            Map<String,String> map = new HashMap<>();
-            map.put("username",um);
-            map.put("password",pw);
-            presenter.register(map);
+            presenter.register(um,pw);
             Log.i("TAG",um + pw);
         }
     }
