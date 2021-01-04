@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 
 import com.client.MainActivity;
 import com.client.R;
+import com.client.utils.SpUtils;
 
 import java.lang.ref.WeakReference;
 
@@ -138,6 +139,7 @@ public class SplaceFragment extends Fragment implements View.OnClickListener {
     private void goMain(){
         if(isUpdate) return;
         live = false;
+        SpUtils.getInstance().setValue("isfirst",false);
         Intent intent = new Intent(getContext(), MainActivity.class);
         startActivity(intent);
         getActivity().finish();

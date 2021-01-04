@@ -1,2 +1,4 @@
+include ':BaseModule'
+include ':mylibrary'
 include ':app'
 rootProject.name = "MyApp"

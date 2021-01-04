@@ -20,6 +20,7 @@ import com.client.model.app.AppBean;
 import com.client.presenter.app.AppPresenter;
 import com.client.ui.start.SplaceFragment;
 import com.client.utils.DownUtils;
+import com.client.utils.SpUtils;
 import com.client.utils.SystemUtils;
 import com.luck.picture.lib.tools.ToastUtils;
 
@@ -70,6 +71,13 @@ public class SplaceActivity extends BaseActivity<IApp.Presenter> implements IApp
 
     @Override
     protected void initData() {
+        boolean isfirst = SpUtils.getInstance().getBoolean("isfirst");
+        if(!isfirst){
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
         list = new ArrayList<>();
         list.add(SplaceFragment.getInstance(1));
         list.add(SplaceFragment.getInstance(2));
@@ -121,6 +129,10 @@ public class SplaceActivity extends BaseActivity<IApp.Presenter> implements IApp
      */
     @Override
     public void getAppInfoReturn(AppBean appBean) {
+        if(appBean.getData().size() == 0){
+            ToastUtils.s(this,"没有需要跟新的版本");
+            return;
+        }
         long versionCode = SystemUtils.getApkVersionCodeByPg(MyApp.app,appBean.getData().get(0).getPg());
         if(versionCode == -1){
             ToastUtils.s(this,"未找到对应的apk");

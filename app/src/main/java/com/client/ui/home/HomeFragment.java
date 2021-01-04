@@ -28,6 +28,9 @@ import com.client.model.home.HomeBean;
 import com.client.presenter.home.HomePresenter;
 import com.client.utils.ImageLoader;
 import com.client.utils.TxtUtils;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.live.LiveActivity;
+import com.live.RoomActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoaderInterface;
@@ -55,6 +58,8 @@ public class HomeFragment extends BaseFragment<IHome.Presenter> implements IHome
     RecyclerView recyCategory;
     @BindView(R.id.txt_newgood_title)
     TextView txtNewGoodTitle;
+    @BindView(R.id.btn_live)
+    FloatingActionButton btnLive;
 
     //品牌直供
     BrandAdpater brandAdpater;
@@ -88,7 +93,13 @@ public class HomeFragment extends BaseFragment<IHome.Presenter> implements IHome
 
     @Override
     protected void initView() {
-
+        btnLive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, RoomActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
