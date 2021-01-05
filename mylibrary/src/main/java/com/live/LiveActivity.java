@@ -2,6 +2,7 @@ package com.live;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -12,6 +13,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.basemodule.base.BaseActivity;
+import com.live.interfaces.ILive;
 import com.tencent.rtmp.ITXLivePlayListener;
 import com.tencent.rtmp.TXLiveConstants;
 import com.tencent.rtmp.TXLivePlayConfig;
@@ -20,7 +23,7 @@ import com.tencent.rtmp.ui.TXCloudVideoView;
 
 import java.nio.charset.StandardCharsets;
 
-public class LiveActivity extends AppCompatActivity implements ITXLivePlayListener, View.OnClickListener {
+public class LiveActivity extends BaseActivity<ILive.Presenter> implements ITXLivePlayListener, View.OnClickListener {
 
     private static String TAG = LiveActivity.class.getSimpleName();
 
@@ -33,22 +36,34 @@ public class LiveActivity extends AppCompatActivity implements ITXLivePlayListen
     private String mPlayUrl = "";
     private boolean mIsPlaying;
 
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_live);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        initView();
-        initListener();
+    protected int getLayout() {
+        return R.layout.activity_live;
     }
 
-    private void initView() {
+    @Override
+    protected ILive.Presenter createPrenter() {
+        return null;
+    }
+
+    @Override
+    protected void initView() {
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         imgBack = findViewById(R.id.img_back);
         mVideoView = findViewById(R.id.video_play);
         mPlayerConfig = new TXLivePlayConfig();
         mLivePlayer = new TXLivePlayer(this);
+        initListener();
+    }
 
-        startPlay();
+    @Override
+    protected void initData() {
+        String url = getIntent().getStringExtra("play_url");
+        if(!TextUtils.isEmpty(url)){
+            mPlayUrl = url;
+            startPlay();
+        }
     }
 
     private void initListener(){
@@ -71,7 +86,7 @@ public class LiveActivity extends AppCompatActivity implements ITXLivePlayListen
         mLivePlayer.setRenderMode(TXLiveConstants.RENDER_MODE_ADJUST_RESOLUTION);
         mPlayerConfig.setEnableMessage(true);
         mLivePlayer.setConfig(mPlayerConfig);
-        int code = mLivePlayer.startPlay(Global.PLAY_URL,TXLivePlayer.PLAY_TYPE_LIVE_RTMP);
+        int code = mLivePlayer.startPlay(mPlayUrl,TXLivePlayer.PLAY_TYPE_LIVE_RTMP);
         mIsPlaying = code == 0;
 
     }

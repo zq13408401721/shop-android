@@ -1,6 +1,7 @@
 package com.live;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.ImageView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.basemodule.base.BaseActivity;
+import com.live.interfaces.IPush;
 import com.tencent.rtmp.ITXLivePushListener;
 import com.tencent.rtmp.TXLiveConstants;
 import com.tencent.rtmp.TXLivePushConfig;
@@ -17,7 +20,7 @@ import com.tencent.rtmp.TXLivePusher;
 import com.tencent.rtmp.TXLog;
 import com.tencent.rtmp.ui.TXCloudVideoView;
 
-public class PushActivity extends AppCompatActivity implements ITXLivePushListener,View.OnClickListener {
+public class PushActivity extends BaseActivity<IPush.Presenter> implements ITXLivePushListener,View.OnClickListener {
 
     private static String TAG = PushActivity.class.getSimpleName();
 
@@ -32,19 +35,28 @@ public class PushActivity extends AppCompatActivity implements ITXLivePushListen
 
     private String mPusherURL       = "";   // 推流地址
 
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_push);
-        initView();
+    protected int getLayout() {
+        return R.layout.activity_push;
+    }
+
+    @Override
+    protected IPush.Presenter createPrenter() {
+        return null;
+    }
+
+    @Override
+    protected void initView() {
+        mPusherView = findViewById(R.id.video_push);
+        imgBack = findViewById(R.id.img_back);
+        btnSwitch = findViewById(R.id.btn_switch);
         initiPusher();
         initListener();
     }
 
-    private void initView() {
-        mPusherView = findViewById(R.id.video_push);
-        imgBack = findViewById(R.id.img_back);
-        btnSwitch = findViewById(R.id.btn_switch);
+    @Override
+    protected void initData() {
 
     }
 

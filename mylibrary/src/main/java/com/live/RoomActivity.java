@@ -2,6 +2,7 @@ package com.live;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,28 +14,43 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.basemodule.base.BaseActivity;
+import com.basemodule.base.BaseAdapter;
+import com.live.interfaces.IRoom;
+import com.live.model.LiveUrlBean;
+import com.live.model.RoomBean;
+import com.live.presenter.RoomPresenter;
 
-public class RoomActivity extends AppCompatActivity implements View.OnClickListener {
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class RoomActivity extends BaseActivity<IRoom.Presenter> implements View.OnClickListener, IRoom.View {
+
+    private static final int CODE_LIVE = 100;
+
 
     RecyclerView recyRoom;
     ImageView imgBack;
     ImageView imgStartLive;
-    List<String> list;
-    MyAdapter myAdapter;
+    List<RoomBean.DataBean> roomList;
+    RoomListAdapter roomListAdapter;
 
 
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_room);
-        initView();
-        initListener();
+    protected int getLayout() {
+        return R.layout.activity_room;
     }
 
-    private void initView() {
+    @Override
+    protected IRoom.Presenter createPrenter() {
+        return new RoomPresenter();
+    }
+
+    @Override
+    protected void initView() {
         recyRoom = findViewById(R.id.recy_room);
         imgBack = findViewById(R.id.img_back);
         imgStartLive = findViewById(R.id.img_startLive);
@@ -42,15 +58,32 @@ public class RoomActivity extends AppCompatActivity implements View.OnClickListe
         imgStartLive.setOnClickListener(this);
         imgBack.setOnClickListener(this);
 
-        list = new ArrayList<>();
-        list.add("美女1");
-        myAdapter = new MyAdapter();
+        roomList = new ArrayList<>();
+        roomListAdapter = new RoomListAdapter(this,roomList);
         recyRoom.setLayoutManager(new GridLayoutManager(this,2));
-        recyRoom.setAdapter(myAdapter);
+        recyRoom.setAdapter(roomListAdapter);
+        initListener();
+    }
+
+    @Override
+    protected void initData() {
+        presenter.getRoomList();
     }
 
     private void initListener(){
+        roomListAdapter.addListClick(new BaseAdapter.IListClick() {
+            @Override
+            public void itemClick(int pos) {
+                int isopen = roomList.get(pos).getIsopen();
+                if(isopen == 1){  //开放的房间
+                    Map<String,String> map = new HashMap<>();
+                    map.put("roomid",String.valueOf(roomList.get(pos).getId()));
+                    presenter.roomLiveUrl(map);
+                }else if(isopen == 2){  //密码
 
+                }
+            }
+        });
     }
 
     @Override
@@ -65,38 +98,28 @@ public class RoomActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    class MyAdapter extends RecyclerView.Adapter{
+    @Override
+    public void getRoomListReturn(RoomBean result) {
 
-        @NonNull
-        @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(RoomActivity.this).inflate(R.layout.layout_room_item,parent,false);
-            MyVH myVH = new MyVH(view);
-            return myVH;
-        }
+    }
 
-        @Override
-        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-            MyVH myVH = (MyVH) holder;
-            myVH.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(RoomActivity.this,LiveActivity.class);
-                    startActivity(intent);
-                }
-            });
-        }
-
-        @Override
-        public int getItemCount() {
-            return list.size();
+    /**
+     * 获取房间地址的返回
+     * @param result
+     */
+    @Override
+    public void roomLiveUrlReturn(LiveUrlBean result) {
+        if(result.getErrno() == 0){
+            if(!TextUtils.isEmpty(result.getData().getPlay_url())){
+                Intent intent = new Intent(this,LiveActivity.class);
+                intent.putExtra("play_url",result.getData().getPlay_url());
+                startActivityForResult(intent,CODE_LIVE);
+            }
         }
     }
 
-    class MyVH extends RecyclerView.ViewHolder{
-
-        public MyVH(@NonNull View itemView) {
-            super(itemView);
-        }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
