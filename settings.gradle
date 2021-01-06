@@ -1,4 +1,4 @@
-include ':myjni'
+include ':MyVideo'
 include ':BaseModule'
 include ':mylibrary'
 include ':app'

@@ -41,5 +41,10 @@
       <option name="name" value="Google2" />
       <option name="url" value="https://maven.google.com/" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="BintrayJCenter2" />
+      <option name="name" value="BintrayJCenter2" />
+      <option name="url" value="https://maven.aliyun.com/repository/jcenter" />
+    </remote-repository>
   </component>
 </project>

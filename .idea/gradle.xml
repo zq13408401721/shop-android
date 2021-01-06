@@ -12,8 +12,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/BaseModule" />
+            <option value="$PROJECT_DIR$/MyVideo" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/myjni" />
             <option value="$PROJECT_DIR$/mylibrary" />
           </set>
         </option>

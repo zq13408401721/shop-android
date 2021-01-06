@@ -93,7 +93,7 @@ public class HttpManager<T> {
      * 设置请求头信息
      * @param map
      */
-    public void setHeaders(HashMap<String,String> map){
+    public void setHeaders(Map<String,String> map){
         headerMap = map;
     }
 

@@ -31,9 +31,10 @@ android {
                 path 'Android.mk'
             }
         }*/
-        sourceSets.main {
-            jni.srcDirs = []
-            jniLibs.srcDirs = ['src/main/jniLibs']
+        sourceSets {
+            main{
+                jniLibs.srcDirs = ['libs']
+            }
         }
     }
     compileOptions {
@@ -54,6 +55,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation project(path: ':mylibrary')
+    implementation project(path: ':MyVideo')
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

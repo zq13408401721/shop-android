@@ -1,6 +1,7 @@
 package com.live;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,7 +25,11 @@ public class RoomListAdapter extends BaseAdapter<RoomBean.DataBean> {
     protected void bindData(RoomBean.DataBean data, VH vh) {
         ImageView imgBg = (ImageView) vh.getViewById(R.id.img_bg);
         TextView txtName = (TextView) vh.getViewById(R.id.txt_name);
-        Glide.with(imgBg).load(data.getIcon()).into(imgBg);
+        if(!TextUtils.isEmpty(data.getIcon())){
+            Glide.with(imgBg).load(data.getIcon()).into(imgBg);
+        }else{
+            imgBg.setImageResource(R.mipmap.room);
+        }
         txtName.setText(data.getName());
     }
 }

@@ -23,6 +23,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        jcenter(){url 'https://maven.aliyun.com/repository/jcenter'}
         maven { url 'https://dl.bintray.com/umsdk/release' }
         maven { url 'http://developer.huawei.com/repo'} //如果需要使用华为推送HMS，则需要加上此句
         maven {

@@ -33,8 +33,8 @@ import retrofit2.http.QueryMap;
 
 public interface ShopApi {
 
-    //String BASE_URL = "https://cdplay.cn/";
-    String BASE_URL = "http://192.168.3.186:8360/";
+    String BASE_URL = "https://cdplay.cn/";
+    //String BASE_URL = "http://192.168.3.186:8360/";
 
     @GET("api/index")
     Flowable<HomeBean> getHome();

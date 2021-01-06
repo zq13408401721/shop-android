@@ -57,7 +57,10 @@ public class PushActivity extends BaseActivity<IPush.Presenter> implements ITXLi
 
     @Override
     protected void initData() {
-
+        String pushUrl = getIntent().getStringExtra("push_url");
+        mPusherURL = pushUrl;
+        //开始推流
+        startPush();
     }
 
     private void initiPusher() {
@@ -66,7 +69,6 @@ public class PushActivity extends BaseActivity<IPush.Presenter> implements ITXLi
         mLivePusher.setConfig(mLivePushConfig);
         //设置默认美颜参数，美颜样式为光滑，美颜等级5，美白等级3，红润等级2
         mLivePusher.setBeautyFilter(TXLiveConstants.BEAUTY_STYLE_SMOOTH,5,3,2);
-        startPush();
     }
 
     private void initListener(){
@@ -80,11 +82,10 @@ public class PushActivity extends BaseActivity<IPush.Presenter> implements ITXLi
      */
     private void startPush(){
 
-        String tRTMPURL = Global.PUSH_URL;
         // 本地预览
         mLivePusher.startCameraPreview(mPusherView);
         // 发起推流
-        int ret = mLivePusher.startPusher(tRTMPURL.trim());
+        int ret = mLivePusher.startPusher(mPusherURL.trim());
         if(ret == -5){
             Log.i(TAG,"startRTMPPush:license校验失败");
         }

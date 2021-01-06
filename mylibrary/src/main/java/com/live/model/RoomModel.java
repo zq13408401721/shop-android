@@ -44,4 +44,39 @@ public class RoomModel extends BaseModel implements IRoom.Model {
                     }
                 }));
     }
+
+    /**
+     * 获取自己房间
+     * @param callback
+     */
+    @Override
+    public void getMyRoom(Callback callback) {
+        addDisposible(serviceApi.getMyRoom().
+                compose(RxUtils.rxScheduler())
+                .subscribeWith(new CommonSubscriber<MyRoomBean>(callback) {
+                    @Override
+                    public void onNext(MyRoomBean roomBean) {
+                        callback.success(roomBean);
+                    }
+                }));
+    }
+
+    /**
+     * 开播
+     * @param roomid
+     * @param callback
+     */
+    @Override
+    public void startLive(int roomid, Callback callback) {
+        addDisposible(serviceApi.startLive(roomid).
+                compose(RxUtils.rxScheduler())
+                .subscribeWith(new CommonSubscriber<StartLiveBean>(callback) {
+                    @Override
+                    public void onNext(StartLiveBean startLiveBean) {
+                        callback.success(startLiveBean);
+                    }
+                }));
+    }
+
+
 }

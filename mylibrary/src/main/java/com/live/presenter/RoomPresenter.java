@@ -5,8 +5,10 @@ import com.basemodule.interfaces.Callback;
 import com.live.interfaces.IPush;
 import com.live.interfaces.IRoom;
 import com.live.model.LiveUrlBean;
+import com.live.model.MyRoomBean;
 import com.live.model.RoomBean;
 import com.live.model.RoomModel;
+import com.live.model.StartLiveBean;
 
 import java.util.Map;
 
@@ -47,6 +49,51 @@ public class RoomPresenter extends BasePresenter<IRoom.View> implements IRoom.Pr
             public void success(LiveUrlBean data) {
                 if(mView != null){
                     mView.roomLiveUrlReturn(data);
+                }
+            }
+
+            @Override
+            public void fail(String err) {
+                if(mView != null){
+                    mView.showToast(err);
+                }
+            }
+        });
+    }
+
+    /**
+     * 获取房间信息
+     */
+    @Override
+    public void getMyRoom() {
+        model.getMyRoom(new Callback<MyRoomBean>() {
+            @Override
+            public void success(MyRoomBean data) {
+                if(mView != null){
+                    mView.getMyRoomReturn(data);
+                }
+            }
+
+            @Override
+            public void fail(String err) {
+                if(mView != null){
+                    mView.showToast(err);
+                }
+            }
+        });
+    }
+
+    /**
+     * 直播开播
+     * @param roomid
+     */
+    @Override
+    public void startLive(int roomid) {
+        model.startLive(roomid,new Callback<StartLiveBean>() {
+            @Override
+            public void success(StartLiveBean data) {
+                if(mView != null){
+                    mView.startLiveReturn(data);
                 }
             }
 

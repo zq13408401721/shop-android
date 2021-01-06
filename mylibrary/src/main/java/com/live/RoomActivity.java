@@ -18,7 +18,9 @@ import com.basemodule.base.BaseActivity;
 import com.basemodule.base.BaseAdapter;
 import com.live.interfaces.IRoom;
 import com.live.model.LiveUrlBean;
+import com.live.model.MyRoomBean;
 import com.live.model.RoomBean;
+import com.live.model.StartLiveBean;
 import com.live.presenter.RoomPresenter;
 
 import java.util.ArrayList;
@@ -90,8 +92,7 @@ public class RoomActivity extends BaseActivity<IRoom.Presenter> implements View.
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.img_startLive) {
-            Intent intent = new Intent(RoomActivity.this,PushActivity.class);
-            startActivity(intent);
+            presenter.getMyRoom();
         }else if(id == R.id.img_back){
 
             finish();
@@ -100,7 +101,9 @@ public class RoomActivity extends BaseActivity<IRoom.Presenter> implements View.
 
     @Override
     public void getRoomListReturn(RoomBean result) {
-
+        roomList.clear();
+        roomList.addAll(result.getData());
+        roomListAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -115,6 +118,30 @@ public class RoomActivity extends BaseActivity<IRoom.Presenter> implements View.
                 intent.putExtra("play_url",result.getData().getPlay_url());
                 startActivityForResult(intent,CODE_LIVE);
             }
+        }
+    }
+
+    /**
+     * 获取我的房间信息返回
+     * @param result
+     */
+    @Override
+    public void getMyRoomReturn(MyRoomBean result) {
+        if(result.getErrno() == 0){
+            presenter.startLive(result.getData().getId());
+        }
+    }
+
+    /**
+     * 获取开播的推流地址返回
+     * @param result
+     */
+    @Override
+    public void startLiveReturn(StartLiveBean result) {
+        if(result.getErrno() == 0){
+            Intent intent = new Intent(this,PushActivity.class);
+            intent.putExtra("push_url",result.getData().getPush_url());
+            startActivity(intent);
         }
     }
 

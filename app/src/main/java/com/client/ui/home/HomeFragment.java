@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -26,7 +27,9 @@ import com.client.interfaces.IBasePresenter;
 import com.client.interfaces.home.IHome;
 import com.client.model.home.HomeBean;
 import com.client.presenter.home.HomePresenter;
+import com.client.ui.login.LoginActivity;
 import com.client.utils.ImageLoader;
+import com.client.utils.SpUtils;
 import com.client.utils.TxtUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.live.LiveActivity;
@@ -96,8 +99,14 @@ public class HomeFragment extends BaseFragment<IHome.Presenter> implements IHome
         btnLive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, RoomActivity.class);
-                startActivity(intent);
+                String token = SpUtils.getInstance().getString("token");
+                if(!TextUtils.isEmpty(token)){
+                    Intent intent = new Intent(mContext, RoomActivity.class);
+                    startActivity(intent);
+                }else{
+                    Intent intent = new Intent(mContext, LoginActivity.class);
+                    startActivity(intent);
+                }
             }
         });
     }

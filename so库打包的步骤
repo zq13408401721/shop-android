@@ -1,0 +1,68 @@
+1. 创建module
+
+2. 创建java类编写native接口
+    如： public static native String title();
+
+3. 进入包的根目录 /main/java,使用javac -h -jni com\myvideo\YVideo.java 或 javac -h . com\myvideo\YVideo.java
+    生成对应的h头文件，成功执行会在该目录下生成对应头文件 如：com_a_ndklib_SVideo.h
+
+4. 在main目录下新建jni目录，将生成的头文件复制到jni目录下,同時创建头文件对应的实现类，com_myvideo_YVideo.c
+    注：实现类的名字必须与头文件的名字一致。
+    如：
+
+5. 在jni目录下创建Android.mk文件
+    内容如下:
+            LOCAL_PATH := $(call my-dir)
+            include $(CLEAR_VARS)
+
+            LOCAL_MODULE := YVideo
+            LOCAL_SRC_FILES := com_myvideo_YVideo.c
+            include $(BUILD_SHARED_LIBRARY)
+
+6. 在jni目录下创建Application.mk文件 /可有可无
+    内容如下:
+            APP_ABI := all
+
+7. cd到jni目录下使用ndk-build,如果成功，会在目录下生成对应的so库文件。
+
+
+so包导入使用方式
+1. 在项目的main目录下新建jniLibs,然后把对应的so库拷进来. make project/rebuild project
+
+2. 把so库拷贝到libs目录，在app/build.gradle中添加读取libs目录库的脚本。
+    如：sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+3. 在项目中通过静态代码引入对应so库
+    如：
+      static {
+              System.loadLibrary("YVideo");
+      }
+
+
+4. 通过封装so库中的类和方法获取对应内容
+    如：YVideo.callJni();
+
+
+ndk(c/c++)通过jni调用java
+1. 在java端创建一个给jni调用的类以及方法(私有)
+
+2. 在c的头文件和实现类文件中实现对应的方法
+
+3. 在c的实现类中通过反射获取需要回调的类
+    如：(*env)->FindClass(env,"com/com.myvideo/YVideo");
+
+4. 在c的实现类中通过反射获取需要回调的方法
+    如：(*env)->GetMethodID(env,classzz,"callFromJni","()V");
+
+5. 在c的实现类中调用回调方法
+    如：
+    //调用方法
+     (*env)->CallVoidMethod(env,obj,methodId);
+
+6. 通过ndk-build重新编译so库，替换项目中的so库文件
+
+7. 在项目中通过初始化需要回调的类的对象，触发c的调用
