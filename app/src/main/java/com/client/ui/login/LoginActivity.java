@@ -63,6 +63,7 @@ public class LoginActivity extends BaseActivity<ILogin.Presenter> implements ILo
         TxtUtils.setTextView(inputUsername,um);
     }
 
+
     @OnClick({R.id.btn_login,R.id.img_pw})
     public void onClick(View view){
         switch (view.getId()){

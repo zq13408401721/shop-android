@@ -59,7 +59,7 @@ public abstract class BaseAdapter<D> extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        bindData(mData.get(position), (VH) holder);
+        bindData(mData.get(position), (VH) holder);  //ViewDataBinding
     }
 
     @Override

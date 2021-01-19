@@ -60,12 +60,27 @@ public class RoomActivity extends BaseActivity<IRoom.Presenter> implements View.
         imgStartLive.setOnClickListener(this);
         imgBack.setOnClickListener(this);
 
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        imgBack.setOnClickListener(v -> {
+            if(v.getId() == R.id.img_back){
+
+            }
+        });
+
         roomList = new ArrayList<>();
         roomListAdapter = new RoomListAdapter(this,roomList);
         recyRoom.setLayoutManager(new GridLayoutManager(this,2));
         recyRoom.setAdapter(roomListAdapter);
         initListener();
     }
+
+
 
     @Override
     protected void initData() {
